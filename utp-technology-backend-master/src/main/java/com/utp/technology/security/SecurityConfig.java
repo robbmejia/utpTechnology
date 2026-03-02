@@ -35,7 +35,7 @@ public class SecurityConfig {
         .authorizeHttpRequests(
             req -> req
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/api/v1/auth/**", "/api/v1/producto",
-                    "/api/v1/pedido/*/pdf")
+                    "/api/v1/pedido/*/pdf", "/api/v1/ping")
                 .permitAll()
                 .anyRequest().authenticated())
         .sessionManagement(
