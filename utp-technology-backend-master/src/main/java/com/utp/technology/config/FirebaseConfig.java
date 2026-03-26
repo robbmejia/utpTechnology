@@ -23,10 +23,17 @@ public class FirebaseConfig {
             InputStream serviceAccount;
 
             // Try to load from Render Secret File path first
-            File secretFile = new File("/etc/secrets/service-account.json");
-            if (secretFile.exists()) {
-                serviceAccount = new FileInputStream(secretFile);
+            File secretFileRender = new File("/etc/secrets/service-account.json");
+            File secretFileRoot = new File("service-account.json");
+            
+            if (secretFileRender.exists()) {
+                System.out.println("LOG: Firebase Secret found at " + secretFileRender.getAbsolutePath());
+                serviceAccount = new FileInputStream(secretFileRender);
+            } else if (secretFileRoot.exists()) {
+                System.out.println("LOG: Firebase Secret found at " + secretFileRoot.getAbsolutePath());
+                serviceAccount = new FileInputStream(secretFileRoot);
             } else {
+                System.out.println("LOG: Secret file not found in /etc/secrets/ or root. Falling back to classpath...");
                 // Fallback to classpath for local development
                 ClassPathResource resource = new ClassPathResource("service-account.json");
                 serviceAccount = resource.getInputStream();
