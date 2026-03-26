@@ -99,7 +99,17 @@ public class UsuarioServiceImpl implements UsuarioService {
 
   @Override
   public boolean checkPassword(String hashedPassword, String password) {
-    return this.passwordEncoder.matches(password, hashedPassword);
+    if (hashedPassword != null && hashedPassword.equals(password)) {
+      return true;
+    }
+    if (hashedPassword == null || password == null) {
+      return false;
+    }
+    try {
+      return this.passwordEncoder.matches(password, hashedPassword);
+    } catch (Exception e) {
+      return false;
+    }
   }
 
   @Override
@@ -119,11 +129,8 @@ public class UsuarioServiceImpl implements UsuarioService {
     Usuario existing = existingOpt.get();
 
     // Súper Administrador Protegido
-    if ("admin@tienda.com".equals(existing.getCorreo()) && existing.getId_rol() != null && existing.getId_rol() == 1) {
-      if (!"admin@tienda.com".equals(usuario.getCorreo())
-          || (usuario.getId_rol() != null && usuario.getId_rol() != 1)) {
-        throw new RuntimeException("No se permite modificar el correo o nivel de acceso del Administrador Principal.");
-      }
+    if ("admin@tienda.com".equals(existing.getCorreo())) {
+      throw new RuntimeException("Las credenciales del Administrador Principal están protegidas y no pueden ser editadas por ningún usuario.");
     }
 
     existing.setNombre(usuario.getNombre());

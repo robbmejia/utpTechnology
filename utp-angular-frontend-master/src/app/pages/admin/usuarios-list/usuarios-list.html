@@ -70,7 +70,8 @@
               <td class="text-center whitespace-nowrap">
                 <div class="flex justify-center gap-3">
                   <button (click)="abrirModal(element)" matTooltip="Editar Roles / Permisos"
-                          class="p-2 glass-card rounded-lg hover:border-amber-500/50 text-amber-400 transition-all">
+                          [disabled]="element.correo === 'admin@tienda.com'"
+                          class="p-2 glass-card rounded-lg hover:border-amber-500/50 text-amber-400 transition-all disabled:opacity-30 disabled:hover:border-transparent disabled:cursor-not-allowed">
                     <mat-icon class="text-sm h-5 w-5">edit</mat-icon>
                   </button>
                   <button (click)="eliminar(element)" matTooltip="Eliminar Usuario"
