@@ -6,7 +6,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Collections;
-import java.util.List;
 import com.utp.technology.model.Cliente;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -15,7 +14,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -32,20 +30,10 @@ public class ClienteServiceTest {
 
   private ClienteServiceImpl clienteService;
 
-  private ListClienteDto cliente;
   private Pageable pageable;
 
   @BeforeEach
   void setUp() {
-    var clienteTest = new ListClienteDto();
-    clienteTest.setId(1);
-    clienteTest.setNombre("");
-    clienteTest.setApellido("");
-    clienteTest.setDni("");
-    clienteTest.setTelefono("");
-    clienteTest.setCorreo("");
-
-    this.cliente = clienteTest;
     pageable = PageRequest.of(0, 10, Sort.by(Direction.ASC, "id"));
     this.clienteService = new ClienteServiceImpl(clienteRepository);
   }
@@ -54,8 +42,6 @@ public class ClienteServiceTest {
   void listarClientes() throws Exception {
 
     String searchTerm = null;
-    List<ListClienteDto> clientes = Collections.singletonList(cliente);
-    Page<ListClienteDto> clientePage = new PageImpl<>(clientes, pageable, 1);
 
     // Al llamar al a función listCliente, se devolvera la página de arriba
     when(clienteRepository.findAll()).thenReturn(Collections.singletonList(new Cliente()));

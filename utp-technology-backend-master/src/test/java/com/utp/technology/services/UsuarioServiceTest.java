@@ -22,7 +22,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.utp.technology.web.dto.auth.SignUpRequestDTO;
 import com.utp.technology.web.dto.user.UserListDto;
 import com.utp.technology.model.Cliente;
-import com.utp.technology.model.Rol;
 import com.utp.technology.model.Usuario;
 import com.utp.technology.repository.ClienteRepository;
 import com.utp.technology.repository.UsuarioRepository;
