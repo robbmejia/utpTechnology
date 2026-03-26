@@ -3,7 +3,6 @@ package com.utp.technology.repository;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.utp.technology.model.Cliente;
-import com.utp.technology.model.Usuario;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
